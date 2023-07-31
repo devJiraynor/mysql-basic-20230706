@@ -72,6 +72,11 @@ INSERT INTO employee VALUES ('20230731002', '김철수', 32);
 INSERT INTO employee VALUES ('20230731003', '이영자', 22);
 INSERT INTO employee VALUES ('20230731004', '배철수', null);
 
+INSERT INTO employee VALUES ('20230731001', '뉴진스', 30);
+INSERT INTO employee VALUES ('20230731002', '르세라핌', 32);
+INSERT INTO employee VALUES ('20230731003', '권상우', 22);
+INSERT INTO employee VALUES ('20230731004', '고창석', null);
+
 # SELECT
 # 테이블에서 데이터를 조회할 때 사용
 # 1. 전체 컬럼 및 데이터 조회
@@ -83,6 +88,26 @@ SELECT age, name FROM employee;
 
 # 3. 특정 로우 조회
 SELECT * FROM employee WHERE age = 22;
+
+# DISTINCT
+# SELECT 문에서 검색 결과의 중복을 제거
+# SELECT DISTINCT 컬럼명 FROM 테이블명 [WHERE 조건];
+SELECT * FROM employee;
+
+SELECT employee_number FROM employee;
+SELECT DISTINCT employee_number FROM employee;
+
+SELECT employee_number, name FROM employee;
+SELECT DISTINCT employee_number, name FROM employee;
+
+SELECT employee_number, age FROM employee;
+SELECT DISTINCT employee_number, age FROM employee;
+
+# ORDER BY
+# 검색 결과를 정렬할때 사용
+# SELECT 컬럼 FROM 테이블명 WHERE 조건 ORDER BY 컬럼명 ASC | DESC, ...;
+# ASC : 오름차순 / DESC : 내림차순
+SELECT * FROM employee ORDER BY employee_number DESC, name ASC;
 
 
 
