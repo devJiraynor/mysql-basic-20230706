@@ -54,12 +54,19 @@ CREATE TABLE super_table (
     column1 INT
 );
 
+
 CREATE TABLE sub_table (
 	column2 INT,
     foreign_column INT,
     CONSTRAINT sub_table_fk
     FOREIGN KEY (foreign_column)
     REFERENCES super_table (primary_column)
+    ON UPDATE CASCADE ON DELETE SET NULL
+    # ON UPDATE, ON DELETE
+    # 수정 및 삭제 작업에 대해서 참조하고있는 데이터가 변경될 때의 작업
+    # CASCADE : 참조되어지는 데이터가 변경되면, 참조하는 데이터도 변경되는 것
+    # SET NULL : 참조되어지는 데이터가 변경되면, 참조하는 데이터가 null로 변경됨
+    # RESTRICT : 참조되어지는 데이터가 변경이 불가능
 );
 
 INSERT INTO super_table VALUES (1, 1);
@@ -70,6 +77,7 @@ UPDATE sub_table SET foreign_column = 2;
 UPDATE super_table SET primary_column = 2;
 DELETE FROM super_table;
 
-
+SELECT * FROM super_table;
+SELECT * FROM sub_table;
 
 
