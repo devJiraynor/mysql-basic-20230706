@@ -148,5 +148,28 @@ SELECT * FROM bbq WHERE 위도 NOT BETWEEN 129.027 AND 129.028;
 # NOT IN() : 좌항이 인수로 전달받은 값중 하나도 존재하지 않으면 true
 SELECT * FROM bbq WHERE 업소명 IN('BBQ개금점', 'BBQ반여점', '교촌치킨');
 
-# EXISTS
+# AND, && : 좌항과 우항이 모두 true일 때 true 반환
+SELECT * FROM bbq WHERE 위도 > 129.028 AND 경도 > 35.1;
+
+# OR, || : 좌항과 우항 중 하나라도 true일 때 true 반환
+SELECT * FROM bbq WHERE 위도 > 129.028 OR 경도 > 35.1;
+
+SELECT * FROM bbq 
+WHERE 업소명 = '교촌치킨' 
+AND 위도 > 129.028 
+OR 경도 > 35.1;
+
+# XOR : 좌항과 우항이 서로 다르면 true 반환
+SELECT * FROM bbq WHERE 위도 > 129.028 XOR 경도 > 35.1;
+
+# NOT : 우항의 부정을 반환
+SELECT * FROM bbq WHERE NOT 위도 > 129.028;
+
+# LIKE 연산자
+# 문자열 데이터에서 특정 패턴에 맞는 데이터를 찾아주는 연산자
+
+# % : 임의 갯수(0 ~ )를 표현하는 와일드 카드
+# _ : 임의의 하나의 문자를 표현하는 와일드 카드
+
+
 
