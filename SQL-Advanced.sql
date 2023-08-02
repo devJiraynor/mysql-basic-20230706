@@ -37,6 +37,8 @@ INSERT INTO department
 VALUES ('인사부', '051-444-1111', '부산광역시');
 INSERT INTO department 
 VALUES ('개발부', '051-555-1111', '부산광역시');
+INSERT INTO department 
+VALUES ('재무부', '051-666-1111', '부산광역시');
 
 INSERT INTO employee 
 VALUES ('3015', '양희정', '부산광역시', '인사부');
@@ -70,6 +72,42 @@ INSERT INTO employee
 VALUES ('3263', '이소진', '부산광역시', null);
 INSERT INTO employee 
 VALUES ('0000', '서지훈', '부산광역시', null);
+
+SELECT * FROM department;
+SELECT * FROM employee;
+
+# JOIN - 두 개 이상의 테이블을 조합하여 검색 결과를 얻고자 할때 사용
+# INNER, LEFT, RIGHT, FULL
+
+# INNER JOIN - 첫 번째 테이블과 두 번째 테이블의 데이터 중
+#              조건에 일치하는 데이터만 조합
+# SELECT 컬럼명, ... 
+# FROM 첫번째테이블 INNER JOIN 두번째테이블 ON 조건;
+
+SELECT 
+	E.employee_number AS '사원번호', 
+    E.name AS '사원이름', 
+    D.department_name AS '부서이름', 
+    D.department_tel_number AS '전화번호'
+FROM department AS D
+INNER JOIN employee AS E
+ON D.department_name = E.department_name;
+
+# LEFT JOIN - 첫 번째 테이블에 있는 모든 데이터와 두 번째 테이블에서
+#             조건에 부합하는 데이터만을 조합
+# SELECT 컬럼명, ...
+# FROM 첫번째테이블 LEFT JOIN 두번째테이블 ON 조건;
+SELECT * 
+FROM department LEFT JOIN employee
+ON department.department_name = employee.department_name;
+
+# RIGHT JOIN - 두 번째 테이블에 있는 모든 데이터와 첫 번째 테이블에서
+#              조건에 부합하는 데이터만 조합
+# SELECT 컬럼, ... 
+# FROM 첫번째테이블 RIGHT JOIN 두번째테이블 ON 조건;
+SELECT *
+FROM department RIGHT JOIN employee
+ON department.department_name = employee.department_name;
 
 
 
