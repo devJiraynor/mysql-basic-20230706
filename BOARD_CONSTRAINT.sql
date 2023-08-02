@@ -5,8 +5,8 @@ CREATE TABLE user (
     tel_number VARCHAR(15) NOT NULL UNIQUE,
     address TEXT NOT NULL,
     address_detail TEXT,
-    agreed_personal BOOLEAN NOT NULL,
-    profile_image TEXT
+    agreed_personal BOOLEAN NOT NULL CHECK(agreed_personal IS true),
+    profile_image TEXT DEFAULT 'https://blog.kakaocdn.net/dn/bj4oa7/btqLJWFLMgd/wu4GV8PKbXdICuyW0me0zk/img.jpg'
 );
 
 CREATE TABLE board (
