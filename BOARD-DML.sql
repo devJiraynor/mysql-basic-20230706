@@ -16,7 +16,21 @@ UPDATE board SET title = '수정 제목', contents = '수정 내용' WHERE board
 # 게시물 삭제 SQL
 DELETE FROM board WHERE board_number = 1;
 
+# 댓글 작성 SQL
+INSERT INTO comment (board_number, user_email, content)
+VALUES (2, 'email@email.com', '안녕하세요');
+
+# 좋아요 등록 SQL
+INSERT INTO favorite VALUES (2, 'email@email.com');
+
+# 좋아요 취소 SQL
+DELETE FROM favorite 
+WHERE board_number = 2 AND user_email = 'email@email.com';
+
+SELECT * FROM user;
 SELECT * FROM board;
+SELECT * FROM comment;
+SELECT * FROM favorite;
 
 
 
