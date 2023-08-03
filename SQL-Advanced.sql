@@ -130,7 +130,50 @@ WHERE department_name IN (
 	WHERE address = '부산광역시'
 );
 
+# FROM 절에서의 서브쿼리 사용
+# address가 '부산'을 포함하는 사원 중에서 / 부서가 null인 사원 전체 컬럼을 조회
+SELECT *
+FROM (
+	SELECT *
+	FROM employee
+	WHERE address LIKE '%부산%'
+) AS T
+WHERE department_name IS NULL;
 
+SELECT *
+FROM department AS D
+INNER JOIN (
+	SELECT *
+    FROM employee
+    WHERE name LIKE '%정%'
+) AS E
+ON D.department_name = E.department_name;
+
+# SELECT 절에서의 서브쿼리 사용
+SELECT department_name, (SELECT name FROM employee WHERE employee_number = 3138)
+FROM department;
+
+# 집계함수 - 테이블에서 집계결과를 나타내주는 함수 (SELECT절에서 사용)
+
+# COUNT - 레코드의 개수를 출력
+SELECT count(*) FROM employee;
+SELECT * FROM employee;
+
+SELECT count(department_name) FROM employee;
+SELECT department_name FROM employee;
+
+SELECT count(*) FROM employee WHERE department_name = '기획부';
+
+# SUM - 해당 컬럼의 합계
+SELECT sum(경도) FROM bbq;
+SELECT sum(경도) FROM bbq WHERE 업소명 = '교촌치킨';
+
+# AVG - 해당 컬럼의 평균
+SELECT avg(경도) FROM bbq;
+
+# MIM - 해당 컬럼의 최소값
+# MAX - 해당 컬럼의 최대값
+SELECT min(위도), max(위도) FROM bbq;
 
 
 
