@@ -114,22 +114,3 @@ LEFT JOIN
     GROUP BY B.board_number
 ) AS T3
 ON T1.board_number = T3.board_number;
-
-SELECT 
-	B.board_number, B.title, B.contents, B.image_url, B.write_datetime, B.view_count,
-	U.profile_image, U.nickname
-FROM board AS B
-INNER JOIN user AS U 
-ON B.writer_email = U.email;
-
-SELECT B.board_number, count(C.user_email) AS comment_count
-FROM board AS B
-LEFT JOIN comment AS C
-ON B.board_number = C.board_number
-GROUP BY B.board_number;
-
-SELECT B.board_number, count(F.user_email) AS favorite_count
-FROM board AS B
-LEFT JOIN favorite AS F
-ON B.board_number = F.board_number
-GROUP BY B.board_number;
