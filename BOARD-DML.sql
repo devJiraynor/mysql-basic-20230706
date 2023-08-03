@@ -113,4 +113,38 @@ LEFT JOIN
 	ON B.board_number = F.board_number
     GROUP BY B.board_number
 ) AS T3
-ON T1.board_number = T3.board_number;
+ON T1.board_number = T3.board_number
+ORDER BY T1.write_datetime DESC;
+
+# Top 3 게시물
+SELECT T1.board_number, T1.title, T1.contents, T1.image_url, T1.write_datetime, T1.view_count,
+	T1.profile_image, T1.nickname,
+    T2.comment_count,
+    T3.favorite_count
+FROM (
+	SELECT 
+		B.board_number, B.title, B.contents, B.image_url, B.write_datetime, B.view_count,
+		U.profile_image, U.nickname
+	FROM board AS B
+	INNER JOIN user AS U 
+	ON B.writer_email = U.email
+) AS T1 INNER JOIN
+(
+	SELECT B.board_number, count(C.user_email) AS comment_count
+	FROM board AS B
+	LEFT JOIN comment AS C
+	ON B.board_number = C.board_number
+    GROUP BY B.board_number
+) AS T2
+ON T1.board_number = T2.board_number
+LEFT JOIN
+(
+	SELECT B.board_number, count(F.user_email) AS favorite_count
+	FROM board AS B
+	LEFT JOIN favorite AS F
+	ON B.board_number = F.board_number
+    GROUP BY B.board_number
+) AS T3
+ON T1.board_number = T3.board_number
+ORDER BY T3.favorite_count DESC;
+
