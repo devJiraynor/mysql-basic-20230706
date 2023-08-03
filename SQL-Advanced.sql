@@ -109,5 +109,28 @@ SELECT *
 FROM department RIGHT JOIN employee
 ON department.department_name = employee.department_name;
 
+# 서브쿼리 - 쿼리 내부에 또 다른 쿼리가 작성되어있는 쿼리
+# WHERE, FROM, SELECT 위치에서 사용 가능
+
+# WHERE 절에서의 서브쿼리 사용
+# employee_number가 3138인 사원 / 의 부서명, 부서전화번호, 부서주소를 조회하라
+SELECT * 
+FROM department
+WHERE department_name = (
+	SELECT department_name
+    FROM employee
+    WHERE employee_number = 3138
+);
+
+# address가 부산광역시인 사원 / 의 부서명, 부서전화번호, 부서주소를 조회하라
+SELECT * FROM department
+WHERE department_name IN (
+	SELECT *
+	FROM employee
+	WHERE address = '부산광역시'
+);
+
+
+
 
 
