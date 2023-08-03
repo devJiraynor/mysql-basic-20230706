@@ -23,7 +23,7 @@ INSERT INTO comment (board_number, user_email, content)
 VALUES (2, 'email@email.com', '안녕하세요');
 
 # 좋아요 등록 SQL
-INSERT INTO favorite VALUES (2, 'email@email.com');
+INSERT INTO favorite VALUES (4, 'email2@email.com');
 
 # 좋아요 취소 SQL
 DELETE FROM favorite 
@@ -85,17 +85,29 @@ WHERE B.board_number = 2;
 # 댓글 수, 좋아요 수
 
 # board, user, favorite, comment
-SELECT 
-	B.board_number, B.title, B.contents, B.image_url, B.write_datetime, B.view_count,
-    U.profile_image, U.nickname, 
-    count(C.user_email) AS comment_count
-FROM board AS B
-INNER JOIN user AS U 
-ON B.writer_email = U.email
-LEFT JOIN comment AS C
-ON B.board_number = C.board_number
-GROUP BY B.board_number;
-
+SELECT *
+FROM (
+	SELECT 
+		B.board_number, B.title, B.contents, B.image_url, B.write_datetime, B.view_count,
+		U.profile_image, U.nickname
+	FROM board AS B
+	INNER JOIN user AS U 
+	ON B.writer_email = U.email
+) AS T1,
+(
+	SELECT B.board_number, count(C.user_email) AS comment_count
+	FROM board AS B
+	LEFT JOIN comment AS C
+	ON B.board_number = C.board_number
+    GROUP BY B.board_number
+) AS T2,
+(
+	SELECT B.board_number, count(F.user_email) AS favorite_count
+	FROM board AS B
+	LEFT JOIN favorite AS F
+	ON B.board_number = F.board_number
+    GROUP BY B.board_number
+) AS T3;
 
 
 
