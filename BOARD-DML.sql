@@ -79,4 +79,25 @@ FROM board AS B INNER JOIN user AS U
 ON B.writer_email = U.email
 WHERE B.board_number = 2;
 
+# 최신게시물 불러오기 SQL 2
+# 게시물번호, 제목, 내용, 사진, 작성날짜, 조회수, 
+# 작성자 프로필 사진, 작성자 닉네임
+# 댓글 수, 좋아요 수
+
+# board, user, favorite, comment
+SELECT 
+	B.board_number, B.title, B.contents, B.image_url, B.write_datetime, B.view_count,
+    U.profile_image, U.nickname, 
+    count(C.user_email) AS comment_count
+FROM board AS B
+INNER JOIN user AS U 
+ON B.writer_email = U.email
+LEFT JOIN comment AS C
+ON B.board_number = C.board_number
+GROUP BY B.board_number;
+
+
+
+
+
 

@@ -175,5 +175,25 @@ SELECT avg(경도) FROM bbq;
 # MAX - 해당 컬럼의 최대값
 SELECT min(위도), max(위도) FROM bbq;
 
+SELECT * FROM bbq ORDER BY 업소명;
+
+# BBQ 관련된 업소명을 모두 'BBQ치킨'로 변경
+UPDATE bbq SET 업소명 = 'BBQ치킨' WHERE 업소명 LIKE '%BBQ%' OR 업소명 LIKE '%비비큐%';
+# BHC 관련된 업소명을 모두 'BHC치킨'로 변경
+UPDATE bbq SET 업소명 = 'BHC치킨' WHERE 업소명 LIKE '%BHC%' OR 업소명 LIKE '%B.H.C%';
+ 
+SELECT * FROM bbq WHERE 업소명 IN('BBQ치킨', 'BHC치킨', '교촌치킨')
+ORDER BY 업소명;
+
+# GROUP BY - 조회된 결과에서 하나 이상의 레코드를 기준으로 그룹화하는 쿼리
+SELECT 업소명, count(*) FROM bbq
+WHERE 업소명 IN('BBQ치킨', 'BHC치킨', '교촌치킨')
+GROUP BY 업소명;
+
+# HAVING - GROUP BY의 결과에서 필터링하고자 할 때 사용 가능
+SELECT 업소명, count(*) AS 수 FROM bbq
+GROUP BY 업소명
+HAVING 위도 >= 129;
+
 
 
