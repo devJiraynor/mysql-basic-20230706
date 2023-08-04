@@ -195,5 +195,13 @@ SELECT 업소명, count(*) AS 수 FROM bbq
 GROUP BY 업소명
 HAVING 위도 >= 129;
 
+# INDEX - 테이블에서 원하는 컬럼의 데이터를 빠르게 찾을 수 있도록 하는 스키마
+# CREATE INDEX 인덱스명 ON 테이블명 (컬럼, ...);
+CREATE INDEX bbq_업소명_idx ON bbq (업소명);
+CREATE INDEX bbq_위치_idx ON bbq (위도, 경도);
+
+SELECT * FROM bbq 
+WHERE 업소명 = 'BBQ치킨';
+
 
 
